@@ -1,5 +1,6 @@
-from blockchain import Vote, Block, Chain
-from node import Node, mine
+#!/usr/bin/python3
+from blockchain import Vote, Chain
+from node import Node
 from user import User
 
 last_block_hash = None
@@ -8,40 +9,35 @@ chain0 = Chain('Choose President', 1)
 trump = chain0.add_option('Trump')
 joe = chain0.add_option('JoeBiden')
 
-block0 = Block()
-block0.previous_block_hash = None
 Ramesh = User()
 Dinesh = User()
 Seema = User()
 Vijay = User()
-vote0 = Vote(Ramesh, block0.identity, joe.identity)
-vote0.sign()
-block0.verified_votes.append(vote0)
-last_block_hash = block0.hash
+Khalid = User()
+Hussam = User()
 
-print(last_block_hash)
-vote1 = Vote(Ramesh, block0.identity, joe.identity)
-vote1.sign()
+vote0 = Vote(Khalid, joe)
+chain0.add_vote(vote0);
 
-vote2 = Vote(Dinesh, block0.identity, trump.identity)
-vote2.sign()
+vote1 = Vote(Ramesh, joe)
+chain0.add_vote(vote1);
 
-vote3 = Vote(Seema, block0.identity, joe.identity)
-vote3.sign()
+vote2 = Vote(Dinesh, trump)
+chain0.add_vote(vote2);
 
-vote4 = Vote(Vijay, block0.identity, joe.identity)
-vote4.sign()
+vote3 = Vote(Seema, joe)
+chain0.add_vote(vote3);
 
-chain0.add_block(block0)
-chain0.dump()
+vote4 = Vote(Vijay, joe)
+chain0.add_vote(vote4);
+
+
+
+vote5 = Vote(Hussam, joe)
+chain0.add_vote(vote5);
 
 node = Node()
+node.handle(chain0);
 
-print(node.ipv4_address)
-# for vote in block0.verified_votes:
-#     vote.display()
-#     print('--------------')
-#
-#
-
-print(mine('hello', 3))
+chain0.results()
+chain0.dump()
