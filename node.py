@@ -1,5 +1,4 @@
 import hashlib
-
 from blockchain import Block, Chain, Vote
 
 
@@ -15,7 +14,7 @@ class Node:
 
     @property
     def ipv4_address(self):
-        return "192.168.1.1"
+        return "127.0.0.1"
 
     def handle(self,chain: Chain):
         while len(chain.unverified_votes) >= 3:
@@ -31,14 +30,14 @@ class Node:
                chain.vote_verified(temp_vote)
             chain.vote_proccessed(temp_vote)
         if len(block.verified_votes) > 1:
-            block.Nonce = self.mine(block,2)
+            block.Nonce = self.mine(block,1)
             chain.add_block(block)
 
     def verify_vote(self,vote: Vote,chain: Chain):
-        if vote.option_id not in chain.options_identities: 
-            return False
-        if vote.user.identity in chain.voted_users:
-            return False
+        # if vote.option_id not in chain.options_identities: 
+        #     return False
+        # if vote.user.identity in chain.voted_users:
+        #     return False
 
         return True;
                     
@@ -49,4 +48,5 @@ class Node:
         for i in range(1000000):
             digest = sha256(str(hash(message)) + str(i))
             if digest.startswith(prefix):
+                print(digest)
                 return digest

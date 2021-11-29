@@ -112,7 +112,7 @@ class Chain:
         self.unverified_votes.append(vote)
 
     def vote_proccessed(self,vote):
-        self.unverified_votes.remove(vote)
+        del self.unverified_votes[0]
 
     def get_block_by_index(self, index):
         return self._blocks[index]
