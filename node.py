@@ -33,8 +33,9 @@ class Node:
                block.vote_verified(temp_vote)
                chain.vote_verified(temp_vote)
             chain.vote_proccessed(temp_vote)
-        if len(block.verified_votes) > 1:
-            block.Nonce = self.mine(block,2)
+        if len(block.verified_votes) >= 1:
+            block.Nonce = self.mine(block,8)
+            print(block.Nonce)
             chain.add_block(block)
 
     def verify_vote(self,vote: Vote,chain: Chain):
@@ -48,7 +49,7 @@ class Node:
     def mine(self,message, difficulty=1):
         assert difficulty >= 1
         prefix = '1' * difficulty
-        for i in range(1000000):
+        for i in range(1000000000):
             digest = sha256(str(hash(message)) + str(i))
             if digest.startswith(prefix):
                 return digest

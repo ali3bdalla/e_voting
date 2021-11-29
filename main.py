@@ -8,7 +8,7 @@ import random
 chain0 = Chain('Choose President', 1)
 trump = chain0.add_option('Trump')
 joe = chain0.add_option('JoeBiden')
-for x in range(50000):
+for x in range(2):
     rand = random.randint(1000,99999)
     user = User()
     if rand % 2 == 0:
